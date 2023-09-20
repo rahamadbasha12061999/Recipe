@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Recipe</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px;
+            background-color: #FAEBD7;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #FFF8DC;
+            padding-left: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #FFF8DC;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #FFF8DC;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .footer button {
+            margin-right: 10px;
+        }
+
+        label {
+            float: left;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+    <h2>Create Recipe</h2>
+    </div>
+
+    <div class="content">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    </div>
+
+    <div class="footer">
+        <button onclick="location.href='{% url 'logout' %}'">Logout</button>
+    </div>
+</body>
+</html>

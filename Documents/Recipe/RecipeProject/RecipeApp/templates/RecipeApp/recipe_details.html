@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Details</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+
+        .header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px;
+            background-color: #FAEBD7;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #FFF8DC;
+            padding-left: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #FFF8DC;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #FFF8DC;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .footer button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+    <h2>{{ recipe.name|title }}</h2>
+    </div>
+
+    <div class="content">
+    <p>Ingredients: {{ recipe.ingredients }}</p>
+    <p>Process: {{ recipe.process }}</p>
+
+    {% if recipe.recipe_images %}
+        <img src="{{ recipe.recipe_images.url }}" alt="{{ recipe.name }}">
+    {% endif %}
+    </div>
+
+    <div class="footer">
+        <button onclick="location.href='{% url 'recipes' %}'">Back to Recipe List</button></br>
+        <button onclick="location.href='{% url 'logout' %}'">Logout</button>
+    </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe List</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px;
+            background-color: #FAEBD7;
+        }
+
+        .recipe-header {
+            flex-grow: 1;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-name {
+            margin-right: 10px;
+        }
+
+        .user-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #FFF8DC;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #FFF8DC;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .footer button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="recipe-header">
+            <h1>Recipes</h1>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="user-info">
+                <h3 class="user-name">{{ user.username|title }}</h3>
+                <img src="{% if user.profile_pic %}{{ user.profile_pic.url }}{% else %}/path/to/default/image.png{% endif %}" alt="{{ user.username }}'s Profile" class="user-image">
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="content">
+        <ul class="recipe-list">
+            {% for recipe in recipes %}
+                <li class="recipe-item">
+                    <a href="{% url 'recipe_details' recipe.id %}">{{ recipe.name|title }}</a>
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'delete_recipe' recipe.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <p>No recipes available.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="footer">
+        <button onclick="location.href='{% url 'create_recipe' %}'">Create Recipe</button></br>
+        <button onclick="location.href='{% url 'logout' %}'">Logout</button>
+    </div>
+</body>
+</html>
